@@ -1,0 +1,15 @@
+﻿--declare  @firstdate  datetime
+--declare  @seconddate datetime
+
+--set  @firstdate  = dateadd(d,1,getdate())
+--set  @seconddate = '2018-02-15 12:51:00'
+select datediff(minute,0, DATEADD(minute,  ((DATEDIFF(dd,  dateadd(d,1,VremePocetka) , VremeZavrsetka)) - 	   (( DATEDIFF(wk,  dateadd(d,1,VremePocetka) , VremeZavrsetka) * 2) -        case when datepart(dw,  dateadd(d,1,VremePocetka) ) = 7 then 1 else 0 end -       case when datepart(dw, VremeZavrsetka) = 7 then -1 else 0 end))*8*60 +  DATEDIFF(minute,  dateadd(d,1,VremePocetka) , dateadd(hh,17,cast(convert(varchar(10),  dateadd(d,1,VremePocetka) , 110) as datetime)))+	   DATEDIFF(minute, dateadd(hh,9,cast(convert(varchar(10),  VremeZavrsetka, 110) as datetime)),VremeZavrsetka) , 0))/60,datediff(minute,0,	   DATEADD(minute, 	((DATEDIFF(dd,  dateadd(d,1,VremePocetka) , VremeZavrsetka)) - 	   (( DATEDIFF(wk,  dateadd(d,1,VremePocetka) , VremeZavrsetka) * 2) -        case when datepart(dw,  dateadd(d,1,VremePocetka) ) = 7 then 1 else 0 end -       case when datepart(dw, VremeZavrsetka) = 7 then -1 else 0 end))*8*60 +  DATEDIFF(minute,  dateadd(d,1,VremePocetka) , dateadd(hh,17,cast(convert(varchar(10),  dateadd(d,1,VremePocetka) , 110) as datetime)))+	   DATEDIFF(minute, dateadd(hh,9,cast(convert(varchar(10),  VremeZavrsetka, 110) as datetime)),VremeZavrsetka) , 0))  from ResenjeProblema	 
+
+--set VremeZavrsetka = convert(datetime, '2018-02-07')
+
+--select ((datediff(dd,  dateadd(d,1,VremePocetka) , VremeZavrsetka)) - 
+--    (( DateDiff(wk,  dateadd(d,1,VremePocetka) , VremeZavrsetka) * 2) - 
+--      case when datepart(dw,  dateadd(d,1,VremePocetka) ) = 7 then 24 else 0 end -
+--      case when datepart(dw, VremeZavrsetka) = 7 then -24 else 0 end))*8*60
+
+select datediff(minute,0, DATEADD(minute,  ((DATEDIFF(dd,  dateadd(d,1,VremePocetka) , VremeZavrsetka)) - 	   (( DATEDIFF(wk,  dateadd(d,1,VremePocetka) , VremeZavrsetka) * 2) -        case when datepart(dw,  dateadd(d,1,VremePocetka) ) = 7 then 1 else 0 end -       case when datepart(dw, VremeZavrsetka) = 7 then -1 else 0 end))*8*60 +  DATEDIFF(minute,  dateadd(d,1,VremePocetka) , dateadd(hh,17,cast(convert(varchar(10),  dateadd(d,1,VremePocetka) , 110) as datetime)))+	   DATEDIFF(minute, dateadd(hh,9,cast(convert(varchar(10),  VremeZavrsetka, 110) as datetime)),VremeZavrsetka) , 0))/60 as RadniSati , datediff(minute,0,	   DATEADD(minute, 	((DATEDIFF(dd,  dateadd(d,1,VremePocetka) , VremeZavrsetka)) - 	   (( DATEDIFF(wk,  dateadd(d,1,VremePocetka) , VremeZavrsetka) * 2) -        case when datepart(dw,  dateadd(d,1,VremePocetka) ) = 7 then 1 else 0 end -       case when datepart(dw, VremeZavrsetka) = 7 then -1 else 0 end))*8*60 +  DATEDIFF(minute,  dateadd(d,1,VremePocetka) , dateadd(hh,17,cast(convert(varchar(10),  dateadd(d,1,VremePocetka) , 110) as datetime)))+	   DATEDIFF(minute, dateadd(hh,9,cast(convert(varchar(10),  VremeZavrsetka, 110) as datetime)),VremeZavrsetka) , 0))  as RadniMinuti,IDProblema,Komentar from ResenjeProblema where StatusZavrsetka = 1
